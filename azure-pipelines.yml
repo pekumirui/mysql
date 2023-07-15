@@ -14,8 +14,6 @@ variables:
   value: '9cc6ba70-2e1a-4749-b09e-630c9e071f42'
 - name: rg-name
   value: 'rg-stock'
-- name: rg-name
-  value: 'stockacr'
   
 steps:
 - bash: az login --identity
