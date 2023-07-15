@@ -1,0 +1,28 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main/Dockerfile
+
+pool:
+  name: Default
+
+variables:
+- name: subscription
+  value: '9cc6ba70-2e1a-4749-b09e-630c9e071f42'
+- name: rg-name
+  value: 'rg-stock'
+- name: rg-name
+  value: 'stockacr'
+  
+steps:
+- bash: az login --identity
+  displayName: 'Login Azure CLI'
+
+- bash: az acr login --name stockacr
+  displayName: 'acr login'
+
+- bash: az acr build --image mysql/stock-db:v1.0 --registry stockacr .
+  displayName: 'acr build'
