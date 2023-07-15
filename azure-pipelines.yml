@@ -19,8 +19,8 @@ steps:
 - bash: az login --identity
   displayName: 'Login Azure CLI'
 
-- bash: sudo az acr login --name stockacr
+- bash: az acr login --name stockacr
   displayName: 'acr login'
 
-- bash: sudo az acr build --image mysql/stock-db:v1.0 --registry stockacr .
+- bash: az acr build --image mysql/stock-db:v1.0 --registry stockacr .
   displayName: 'acr build'
