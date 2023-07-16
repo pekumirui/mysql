@@ -1,0 +1,34 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main/dockerfile/mysql
+
+pool:
+  name: Default
+
+variables:
+- name: subscription
+  value: '9cc6ba70-2e1a-4749-b09e-630c9e071f42'
+- name: rg-name
+  value: 'rg-stock'
+
+jobs:
+  - job: pull-image
+    steps:
+      - task: Docker@2
+        displayName: Login to Docker Hub
+        inputs:
+          command: login
+          containerRegistry: docker-hub
+      - task: Docker@2
+        displayName: 'Build and Push'
+        inputs:
+          command: buildAndPush
+          containerRegistry: docker-hub
+          repository: pekumirui/mysql
+          tags: latest
+          Dockerfile: Dockerfile
+          buildContext: .
