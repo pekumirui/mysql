@@ -2,11 +2,22 @@
 version: "3"
 services:
   mysql:
-    build:
-     context: .
-     dockerfile: Dockerfile
+    image: pekumirui/mysql:latest
+    container_name: "mysqlapp"
     volumes:
-      - ./DB:/docker-entrypoint-initdb.d  #初期データをマウントする場所
-    image: original_mysql_world # イメージの名前
+      - initdata:/docker-entrypoint-initdb.d  #初期データをマウントする場所
+      - mydata:/var/lib/mysql  #初期データをマウントする場所
     environment:
       - MYSQL_ROOT_PASSWORD=6539Eryu   #コンテナ内のMySQLを起動する際のパスワードを設定
+
+volumes:
+  initdata:
+    driver: azure_file
+    driver_opts:
+      share_name: sql
+      storage_account_name: stockdbmount
+  mydata:
+    driver: azure_file
+    driver_opts:
+      share_name: data
+      storage_account_name: stockdbmount
