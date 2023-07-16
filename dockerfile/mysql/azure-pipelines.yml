@@ -28,5 +28,5 @@ steps:
       containerRegistry: docker-hub
       repository: pekumirui/mysql
       tags: latest
-      Dockerfile: Dockerfile
+      Dockerfile: ./Dockerfile
       buildContext: .
