@@ -4,8 +4,12 @@
 # https://aka.ms/yaml
 
 trigger:
-- main/dockerfile/mysql
-
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - dockerfile/mysql
 pool:
   name: Default
 
