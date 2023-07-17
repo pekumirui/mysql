@@ -33,7 +33,7 @@ steps:
       action: 'Create Or Update Resource Group'
       resourceGroupName: $(rg-name)
       location: 'japaneast'
-      templateLocation: 'URL of the file'
-      csmFileLink: 'https://raw.githubusercontent.com/pekumirui/stock/main/deployment/deploy.bicep'
+      templateLocation: 'Linked artifact'
+      csmFile: 'deloyment/deploy.bicep'
       deploymentMode: 'Incremental'
       deploymentName: 'deployment-arm'
