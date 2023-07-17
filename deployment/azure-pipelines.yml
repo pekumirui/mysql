@@ -34,6 +34,6 @@ steps:
       resourceGroupName: $(rg-name)
       location: 'japaneast'
       templateLocation: 'URL of the file'
-      csmFileLink: 'https://raw.githubusercontent.com/pekumirui/stock/main/deployment/deploy.bicep'
+      csmFileLink: 'https://raw.githubusercontent.com/pekumirui/stock/main/deployment/deloy.json'
       deploymentMode: 'Incremental'
       deploymentName: 'deployment-arm'
