@@ -34,6 +34,6 @@ steps:
       resourceGroupName: $(rg-name)
       location: 'japaneast'
       templateLocation: 'Linked artifact'
-      csmFile: '*deploy.bicep'
+      csmFile: '$(System.DefaultWorkingDirectory)/deployment/deploy.bicep'
       deploymentMode: 'Incremental'
       deploymentName: 'deployment-arm'
