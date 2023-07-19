@@ -34,6 +34,6 @@ steps:
       resourceGroupName: $(rg-name)
       location: 'japaneast'
       templateLocation: 'Linked artifact'
-      csmFile: '$(System.DefaultWorkingDirectory)*/deploy.bicep'
+      csmFile: '$(Pipeline.Workspace)/mysql/deploy.bicep'
       deploymentMode: 'Incremental'
       deploymentName: 'deployment-mysql'

@@ -134,7 +134,7 @@ resource uploadinitsqlfile 'Microsoft.Resources/deploymentScripts@2020-10-01' = 
       }
       {
         name: 'filepath'
-        secureValue: './DB/test.sql'
+        secureValue: '../DB/test.sql'
       }
     ]
     scriptContent: 'az storage file upload --account-key $storageAccountKey --account-name $storageAccountName --share-name $sharename --source $filepath'
