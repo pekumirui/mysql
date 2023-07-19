@@ -25,8 +25,6 @@ variables:
   value: 'rg-stock'
 
 steps:
-  - script: ls -al $(System.DefaultWorkingDirectory)
-  - script: ls -al $(Pipeline.Workspace)
   - task: AzureResourceManagerTemplateDeployment@3
     inputs:
       deploymentScope: 'Resource Group'
@@ -36,7 +34,7 @@ steps:
       resourceGroupName: $(rg-name)
       location: 'japaneast'
       templateLocation: 'Linked artifact'
-      csmFile: '$(System.DefaultWorkingDirectory)/deployment/deploy.bicep'
+      csmFile: '$(System.DefaultWorkingDirectory)/deployment/mysql/deploy.bicep'
       deploymentMode: 'Incremental'
       deploymentName: 'deployment-mysql'
       
