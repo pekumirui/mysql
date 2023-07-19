@@ -36,4 +36,4 @@ steps:
       templateLocation: 'Linked artifact'
       csmFile: '$(System.DefaultWorkingDirectory)/deployment/deploy.bicep'
       deploymentMode: 'Incremental'
-      deploymentName: 'deployment-arm'
+      deploymentName: 'deployment-mysql'
