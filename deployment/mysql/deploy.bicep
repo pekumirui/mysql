@@ -1,10 +1,6 @@
 param location string = resourceGroup().location
-param StorageAcountName string = 'stockdbmount'
+param StorageAcountName string = 'stockdbaccount'
 param StorageAccountSKU string ='Standard_LRS'
-
-var userAssignedIdentityName = 'configDeployer'
-var roleAssignmentName = guid(resourceGroup().id, 'contributor')
-var contributorRoleDefinitionId = resourceId('Microsoft.Authorization/roleDefinitions', 'b24988ac-6180-42a0-ab88-20f7382dd24c')
 
 resource containerGroup 'Microsoft.ContainerInstance/containerGroups@2021-03-01' = {
   name: 'mysqlapp'
@@ -109,16 +105,9 @@ resource uploadinitsqlfile 'Microsoft.Resources/deploymentScripts@2020-10-01' = 
   name: 'uploadinitsqlfile'
   location: location
   kind: 'AzureCLI'
-  identity: {
-    type: 'UserAssigned'
-    userAssignedIdentities: {
-      '${userAssignedIdentity.id}': {}
-    }
-  }
   properties: {
     azCliVersion: '2.40.0'
     timeout: 'PT30M'
-    arguments: '\'foo\' \'bar\''
     environmentVariables: [
       {
         name: 'storageAccountKey'
@@ -126,36 +115,20 @@ resource uploadinitsqlfile 'Microsoft.Resources/deploymentScripts@2020-10-01' = 
       }
       {
         name: 'storageAccountName'
-        secureValue: mysqlstorage.name
+        value: mysqlstorage.name
       }
       {
         name: 'sharename'
-        secureValue: initdata.name
+        value: initdata.name
       }
       {
         name: 'filepath'
-        secureValue: '../DB/test.sql'
+        value: '../DB/test.sql'
       }
     ]
     scriptContent: 'az storage file upload --account-key $storageAccountKey --account-name $storageAccountName --share-name $sharename --source $filepath'
     cleanupPreference: 'OnSuccess'
     retentionInterval: 'P1D'
   }
-  dependsOn: [
-    roleAssignment
-  ]
 }
 
-resource userAssignedIdentity 'Microsoft.ManagedIdentity/userAssignedIdentities@2018-11-30' = {
-  name: userAssignedIdentityName
-  location: location
-}
-
-resource roleAssignment 'Microsoft.Authorization/roleAssignments@2020-04-01-preview' = {
-  name: roleAssignmentName
-  properties: {
-    roleDefinitionId: contributorRoleDefinitionId
-    principalId: userAssignedIdentity.properties.principalId
-    principalType: 'ServicePrincipal'
-  }
-}
